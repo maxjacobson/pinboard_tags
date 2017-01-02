@@ -6,10 +6,12 @@ require 'ostruct'
 token = File.read("./token").chomp
 $pinboard = Pinboard::Client.new(:token => token)
 
-tags_file_cache = "./tags_cache"
+$tags_file_cache = tags_file_cache = "./tags_file_cache"
 
 class Tag < OpenStruct
   def destroy
+    # Should bust cache if you actually remove the tag...
+    # FileUtils.rm($tags_file_cache)
     binding.irb
   end
 
@@ -29,6 +31,7 @@ tags =
     tags.map { |tag| Tag.new(tag) }
   end
 
+puts "local variable `tags` has all your tags..."
 binding.irb
 
 4
